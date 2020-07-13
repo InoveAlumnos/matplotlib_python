@@ -354,6 +354,64 @@ def cursores():
     plt.show()
 
 
+def file_plot():
+    # Como gráficar datos provenientes de un archivo CSV
+    # Supongamos que el archivo tiene dos columnas "X" e "Y"
+    # las cuales representan mediciones efectuadas
+    # Para poder plotear esa información hacemos
+    # la comprension de listas o slicing según como almacenamos
+    # los datos de entrada (en una lista de diccionarios o Numpy)
+
+    datos = [{'X': 0, 'Y': 0},
+             {'X': 1, 'Y': 1},
+             {'X': 2, 'Y': 1.414},
+             {'X': 3, 'Y': 1.732},
+             {'X': 4, 'Y': 2.0},
+             {'X': 5, 'Y': 2.236},
+             {'X': 6, 'Y': 2.449},
+             {'X': 7, 'Y': 2.645},
+             ]
+
+    # Debo utilizar comprension de listas para separar
+    # las coulmnas "X" e "Y" en lista de datos
+    x = [data['X'] for data in datos]
+    y = [data['Y'] for data in datos]
+
+    fig = plt.figure()
+    ax = fig.add_subplot()
+
+    ax.plot(x, y, c='r')
+    ax.grid()
+    ax.set_facecolor('whitesmoke')
+    plt.show(block=False)
+
+    # Veamos ahora la diferencia si el archivo CSV
+    # lo hubieramos leido con Numpy y generado
+    # una matriz de con 2 columnas (col=0 X, col=1 Y)
+    datos = np.array([[0, 0],
+                      [1, 1],
+                      [2, 1.414],
+                      [3, 1.732],
+                      [4, 2.0],
+                      [5, 2.236],
+                      [6, 2.449],
+                      [7, 2.645],
+                      ])
+
+    # Muy facilmente puedo obtener los datos
+    # utilizando slicing de Numpy
+    x = datos[:, 0]
+    y = datos[:, 1]
+
+    fig = plt.figure()
+    ax = fig.add_subplot()
+
+    ax.plot(x, y, c='b')
+    ax.grid()
+    ax.set_facecolor('whitesmoke')
+    plt.show()
+
+
 if __name__ == '__main__':
     print("Bienvenidos a otra clase de Inove con Python")
     # ---- Introducción y personalización de gráficos ---- #
@@ -361,7 +419,6 @@ if __name__ == '__main__':
     # multi_plot()
     # marker_color()
     # grid()
-
     # ---------------- Tipos de gráficos ---------------- #
     line_plot()
     scatter_plot()
@@ -369,3 +426,4 @@ if __name__ == '__main__':
     pie_plot()
     # --------------------------------------------------- #
     cursores()
+    file_plot()
