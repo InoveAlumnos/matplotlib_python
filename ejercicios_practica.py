@@ -28,6 +28,10 @@ a su elección en cada caso. Si quiere usar Numpy
 para todo, puede abrir el archivo directamente con Numpy
 y trabajar sin pasar por listas o diccionarios.
 
+TIP: Para abrir el archivo CSV con Numpy y que el header no
+     quede mezclado con los datos utilizar:
+     data = np.genfromtxt(file_name_csv, delimiter=',', names=True) 
+
 NO están permitidos los bucles en la realización de estos ejercicios.
 
 Descripción del dataset "ventas.csv"
@@ -48,9 +52,45 @@ def ej1():
     que grafique la evolución de la facturación de la categoría alimentos
     para el primer mes (mes 1) de facturación.
     Realice un line plot con los datos de facturación de alimentos del mes 1
-    Deberá poder observar la evolución de días(x)-ventas(y)
-    '''
+    Deberá poder observar la evolución de ventas(y) vs días(x)
 
+    TIP:
+    1) Para aquellos que utilicen listas siempre primero deberan
+    emprezar filtrando el dataset en una lista de diccionarios que
+    posee solo las filas y columnas que a están buscando.
+    En este caso todas las filas cuyo mes = 1 y solo la columan
+    de día(x) y de alimentos(y).
+    Una vez que tiene esa lista de dccionarios reducida a la información
+    de interés, debe volver a utilizar comprensión de listas para separar
+    los datos de los días(x) y de los alimentos(y)
+
+    2) Para aquellos que utilicen Numpy, si transformaron su CSV en Numpy
+    les debería haber quedado una matriz de 6 columnas y de 90 filas
+    (recordar sacar la primera fila que es el header)
+    mes | dia | alimentos | bazar | limpieza | electrodomesticos
+    Luego si quisieramos acceder a solo la columna de los dias (col=1)
+    podemos utilizar slicing de Numpy:
+    dias = dataset[:, 1]
+    ¿Cómo puedo obtener las filas solo del primer mes?
+    Aplicando mask de Numpy:
+    mes_1 --> col = 0
+    filas_mes_1 = dataset[:, 0] == 1
+    Obtengo solos los datos del mes uno
+    mes_1 = dataset[filas_mes_1, :]
+
+    x --> dias
+    Obtengo solo los dias del mes1 de alimentos
+    x = dataset[filas_mes_1, 1]
+    o tambien puede usar
+    x = mes_1[:, 1]
+
+    y --> alimentos
+    Obtengo solo los alimentos del mes1 de alimentos
+    y = dataset[filas_mes_1, 2]
+    o tambien puede usar
+    y = mes_1[:, 2]
+
+    '''
 
 def ej2():
     print('Comenzamos a ponernos serios!')
@@ -69,7 +109,7 @@ def ej2():
 
     Luego que tienen discriminadas las ventas por alimento aplicar el método
     np.diff
-    tendencia = np.diff(mis ventas de aliemtos)
+    tendencia = np.diff(mis ventas de alimentos)
 
     Graficar el valor obtenido con un Line Plot
 
@@ -108,7 +148,7 @@ def ej4():
     TIP:
     1) para los que usan listas, para poder obtener estos
     valores primero deberan generar una lista de cada categoría,
-    para luego poder aplicar operaciones somo sum.
+    para luego poder aplicar operaciones como sum.
     2) Para los que usan numpy pueden usar directamente np.sum
     y especificando el axis=0 estarán haciendo la suma total de la columna
 
@@ -127,9 +167,9 @@ def ej5():
     Cada gráfico de columnas deben tener 4 columnas que representan
     el total vendido de cada categoría al final del mes.
     Para poder hacer este ejercicio deben obtener primero
-    total facturado por categoria por mes. Es parecido a lo realizado
-    en el ejercicio anterior pero en vez de todo el año es la suma total
-    por mes por categoría.
+    total facturado por categoria por mes (deben filtrar por mes)
+    Es parecido a lo realizado en el ejercicio anterior pero en vez
+    de todo el año es la suma total por mes por categoría.
 
     Siendo que son 4 categorías y 3 meses, deben obtener al final
     12 valores, con esos 12 valores construir 3 listas/arrays

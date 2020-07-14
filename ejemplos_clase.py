@@ -170,7 +170,25 @@ def grid():
 
 
 def line_plot():
-    # Demostracion de line plot junto con gird layout
+    # Demostración de uso de line plot con una sola variable
+    # Generaremos la función y=X^2 (x al cuadradro)
+    # pero solo graficaremos los valores de "Y" indepedientes de "X"
+    x = range(-10, 11, 2)
+    y = [i**2 for i in x]
+
+    fig = plt.figure()
+    fig.suptitle('Graficar "Y" independiente de "X"', fontsize=14)
+    ax = fig.add_subplot()
+
+    ax.plot(y, c='darkred', marker='^', ms=10, label='y=x**2')
+    ax.legend()
+    ax.grid()
+    custom_ticks = np.linspace(0, 10, 11, dtype=int)
+    ax.set_xticks(custom_ticks)
+    ax.set_facecolor('whitesmoke')
+    plt.plot(block=False)
+
+    # Demostracion de line plot junto con grid layout
     gs = gridspec.GridSpec(2, 2)     # (row, col)
     fig = plt.figure()
     ax1 = fig.add_subplot(gs[0, 0])  # row 0, col 0
@@ -362,20 +380,20 @@ def file_plot():
     # la comprension de listas o slicing según como almacenamos
     # los datos de entrada (en una lista de diccionarios o Numpy)
 
-    datos = [{'X': 0, 'Y': 0},
-             {'X': 1, 'Y': 1},
-             {'X': 2, 'Y': 1.414},
-             {'X': 3, 'Y': 1.732},
-             {'X': 4, 'Y': 2.0},
-             {'X': 5, 'Y': 2.236},
-             {'X': 6, 'Y': 2.449},
-             {'X': 7, 'Y': 2.645},
-             ]
+    datos1 = [{'X': 0, 'Y': 0},
+              {'X': 1, 'Y': 1},
+              {'X': 2, 'Y': 1.414},
+              {'X': 3, 'Y': 1.732},
+              {'X': 4, 'Y': 2.0},
+              {'X': 5, 'Y': 2.236},
+              {'X': 6, 'Y': 2.449},
+              {'X': 7, 'Y': 2.645},
+              ]
 
     # Debo utilizar comprension de listas para separar
     # las coulmnas "X" e "Y" en lista de datos
-    x = [data['X'] for data in datos]
-    y = [data['Y'] for data in datos]
+    x = [data['X'] for data in datos1]
+    y = [data['Y'] for data in datos1]
 
     fig = plt.figure()
     ax = fig.add_subplot()
@@ -388,20 +406,20 @@ def file_plot():
     # Veamos ahora la diferencia si el archivo CSV
     # lo hubieramos leido con Numpy y generado
     # una matriz de con 2 columnas (col=0 X, col=1 Y)
-    datos = np.array([[0, 0],
-                      [1, 1],
-                      [2, 1.414],
-                      [3, 1.732],
-                      [4, 2.0],
-                      [5, 2.236],
-                      [6, 2.449],
-                      [7, 2.645],
-                      ])
+    datos2 = np.array([[0, 0],
+                       [1, 1],
+                       [2, 1.414],
+                       [3, 1.732],
+                       [4, 2.0],
+                       [5, 2.236],
+                       [6, 2.449],
+                       [7, 2.645],
+                       ])
 
     # Muy facilmente puedo obtener los datos
     # utilizando slicing de Numpy
-    x = datos[:, 0]
-    y = datos[:, 1]
+    x = datos2[:, 0]
+    y = datos2[:, 1]
 
     fig = plt.figure()
     ax = fig.add_subplot()
@@ -409,6 +427,52 @@ def file_plot():
     ax.plot(x, y, c='b')
     ax.grid()
     ax.set_facecolor('whitesmoke')
+    plt.show(block=False)
+
+    # Supongamos ahora que solo deseamos graficar para aquellos
+    # valores de X que sean mayor o igual a 2 y menor o igual a 6
+    # Veamos que sucede en cada caso.
+
+    # En el caso de compresion de listas podemos primero filtrar
+    # el dataset por los valores de X o filtrar el dataset
+    # mientras estamos generando los datos de "X" e "Y"
+    # Para que quede más claro haremos la operacion en dos partes
+
+    # Filtrar el dataset por los valores de X
+    filter_dataset = [data for data in datos1
+                      if (data['X'] >= 2) and (data['X'] <= 6)]
+
+    # Debo utilizar comprension de listas para separar
+    # las coulmnas "X" e "Y" en lista de datos
+    x1 = [data['X'] for data in filter_dataset]
+    y1 = [data['Y'] for data in filter_dataset]
+
+    # En el caso de utilizar Numpy lo más práctico y eficiente
+    # es utilizar slicing con máscaras
+
+    # Primero realizaremos una máscara que nos devuelva todas las filas
+    # en donde X>=2 y X<=6:
+    mask = (np.logical_and(datos2[:, 0] >= 2, datos2[:, 0] <= 6))
+
+    # Obtenemos nuestro dataset filtrado por la mascara
+    filter_dataset2 = datos2[mask, :]
+
+    # Utilizamos slicing de Numpy para seprar X e Y
+    x2 = filter_dataset2[:, 0]
+    y2 = filter_dataset2[:, 1]
+
+    fig = plt.figure()
+    ax1 = fig.add_subplot(121)
+    ax2 = fig.add_subplot(122)
+
+    ax1.plot(x1, y1, c='r')
+    ax1.grid()
+    ax1.set_facecolor('whitesmoke')
+
+    ax2.plot(x2, y2, c='b')
+    ax2.grid()
+    ax2.set_facecolor('whitesmoke')
+
     plt.show()
 
 
