@@ -1,189 +1,162 @@
 #!/usr/bin/env python
 '''
 Matplotlib [Python]
-Ejercicios de práctica
+Ejercicios de clase
 ---------------------------
 Autor: Inove Coding School
 Version: 1.1
 
 Descripcion:
-Programa creado para que practiquen los conocimietos
-adquiridos durante la semana
+Programa creado para poner a prueba los conocimientos
+adquiridos durante la clase
 '''
 
 __author__ = "Inove Coding School"
 __email__ = "alumnos@inove.com.ar"
 __version__ = "1.1"
 
-
-'''
-NOTA PARA TODOS LOS EJERCICIOS
-
-Para la resolución de todos los problemas utilizará
-el dataset "ventas.csv".
-
-Desde ahora los de datos los generará c/u
-con Numpy o comprensión de listas o ambos, queda
-a su elección en cada caso. Si quiere usar Numpy
-para todo, puede abrir el archivo directamente con Numpy
-y trabajar sin pasar por listas o diccionarios.
-
-TIP: Para abrir el archivo CSV con Numpy y que el header no
-     quede mezclado con los datos utilizar:
-     data = np.genfromtxt(file_name_csv, delimiter=',', names=True) 
-
-NO están permitidos los bucles en la realización de estos ejercicios.
-
-Descripción del dataset "ventas.csv"
-- Este dataset contiene el importe facturado por un local
-  en la venta de sus productos dividido en 4 categorías
-- Se contabiliza lo vendido por categória al cerrar el día,
-  el dataset está ordenado por mes y día
-- El dataset contiene 3 meses (genéricos) de 30 días c/u
-
-'''
+import math
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.axes
+import matplotlib.gridspec as gridspec
+import mplcursors  # [Opcional cursores]
 
 
 def ej1():
-    print('Comenzamos a divertirnos!')
+    # Line Plot
+    # Se desea graficar tres funciones en una misma figura
+    # en tres gráficos (axes) distintos. Para el siguiente
+    # intervalor de valores de x:
+    x = list(range(-10, 11, 1))
 
-    '''
-    Para comenzar a calentar en el uso del dataset se lo solicita
-    que grafique la evolución de la facturación de la categoría alimentos
-    para el primer mes (mes 1) de facturación.
-    Realice un line plot con los datos de facturación de alimentos del mes 1
-    Deberá poder observar la evolución de ventas(y) vs días(x)
+    # Realizar tres gráficos que representen
+    # y1 = x^2 (X al cuadrado)
+    # y2 = x^3 (X al cubo)
+    # y3 = x^4 (X a la cuarta)
+    # Utilizar comprension de listas para generar
+    # y1, y2 e y3 basado en los valores de x
 
-    TIP:
-    1) Para aquellos que utilicen listas siempre primero deberan
-    emprezar filtrando el dataset en una lista de diccionarios que
-    posee solo las filas y columnas que a están buscando.
-    En este caso todas las filas cuyo mes = 1 y solo la columan
-    de día(x) y de alimentos(y).
-    Una vez que tiene esa lista de dccionarios reducida a la información
-    de interés, debe volver a utilizar comprensión de listas para separar
-    los datos de los días(x) y de los alimentos(y)
+    # Esos tres gráficos deben estar colocados
+    # en la diposición de 3 filas y 1 columna:
+    # ------
+    # graf1
+    # ------
+    # graf2
+    # ------
+    # graf3
+    # ------
+    # Utilizar add_subplot para lograr este efecto
+    # de "3 filas" "1 columna" de gráficos
 
-    2) Para aquellos que utilicen Numpy, si transformaron su CSV en Numpy
-    les debería haber quedado una matriz de 6 columnas y de 90 filas
-    (recordar sacar la primera fila que es el header)
-    mes | dia | alimentos | bazar | limpieza | electrodomesticos
-    Luego si quisieramos acceder a solo la columna de los dias (col=1)
-    podemos utilizar slicing de Numpy:
-    dias = dataset[:, 1]
-    ¿Cómo puedo obtener las filas solo del primer mes?
-    Aplicando mask de Numpy:
-    mes_1 --> col = 0
-    filas_mes_1 = dataset[:, 0] == 1
-    Obtengo solos los datos del mes uno
-    mes_1 = dataset[filas_mes_1, :]
+    # Se debe colocar en la leyenda la función que representa
+    # cada gráfico
 
-    x --> dias
-    Obtengo solo los dias del mes1 de alimentos
-    x = dataset[filas_mes_1, 1]
-    o tambien puede usar
-    x = mes_1[:, 1]
+    # Cada gráfico realizarlo con un color distinto
+    # a su elección
 
-    y --> alimentos
-    Obtengo solo los alimentos del mes1 de alimentos
-    y = dataset[filas_mes_1, 2]
-    o tambien puede usar
-    y = mes_1[:, 2]
-
-    '''
 
 def ej2():
-    print('Comenzamos a ponernos serios!')
+    # Scatter Plot
+    # Se desea graficar dos funciones en una misma figura
+    # en dos gráficos (axes) distintos. Para el siguiente
+    # intervalor de valores de x:
+    x = np.arange(0, 4*np.pi, 0.1)
 
-    '''
-    Queremos visualizar como ver la tendencia de venta de los alimentos
-    a lo largo de todo el año.
-    Para eso queremos utilizar el método "np.diff" para obtener la diferencia
-    día a día de lo vendido.
+    # Realizar dos gráficos que representen
+    # y1 = sin(x)
+    # y2 = cos(x)
+    # Utilizar los métodos de Numpy para calcular
+    # "y1" y "y2" basado en los valores de x
 
-    Se debe poder primero discriminar las ventas por la categoría Alimentos,
-    1) en el caso de usar listas se debe generar una lista de solo
-       ventas de aliementos de todo el año.
-    2) En el caso de usar numpy no hace falta generar una lista/array aparte,
-       pero si le resulta comodo puede hacerlo.
+    # Esos dos gráficos deben estar colocados
+    # en la diposición de 1 fila y 2 columnas:
+    # ------
+    #  graf1 | graf2
+    # ------
+    # Utilizar add_subplot para lograr este efecto
+    # de "1 fila" "2 columnas" de gráficos
 
-    Luego que tienen discriminadas las ventas por alimento aplicar el método
-    np.diff
-    tendencia = np.diff(mis ventas de alimentos)
+    # Se debe colocar en la leyenda la función que representa
+    # cada gráfico
 
-    Graficar el valor obtenido con un Line Plot
-
-    NOTA: Importante!, en este caso no disponen facilmente del eje "X" de diff,
-    para simplificar el caso solamente graficar la variable "tendencia"
-    plot(tendencia)
-
-    '''
+    # Cada gráfico realizarlo con un mark distinto
+    # a su elección.
 
 
 def ej3():
-    print("Buscando la tendencia")
+    # Bar Plot
+    # Generar un gráfico de barras simple a partir
+    # de la siguiente información:
 
-    '''
-    Si observa el dataset, los electrodomésticos no siempre
-    tienen facturación al finalizar el día.
-    Deseamos que generen una nueva lista/array/columna
-    en la cual coloquen un "1" si ese día se vendió electrodomésticos
-    o un "0" sino se vendio nada (facturación = 0).
-    Luego graficar utilizando Line Plot esta nueva lista/array/columna
-    para visualizar la tendencia de cuantos días consecutivos hay
-    ventas de electrodomésticos.
+    lenguajes = ['Python', 'C++', 'Java', 'Perl', 'Scala', 'Lisp']
+    performance = [10, 8, 6, 4, 2, 1]
 
-    '''
+    # Realizar un gráfico de barras en donde se pueda ver el uso
+    # de cada lenguaje, se debe utilizar los labels "lenguajes"
+    # como valor del eje X
+
+    # Se debe colocar título al gráfico.
+    # Se debe cambiar la grilla y el fondo a su elección.
 
 
 def ej4():
-    print("Exprimiendo los datos")
+    # Pie Plot
+    # Se desea realizar un gráfico de torta con la siguiente
+    # información acerca del % de uso de lenguajes en nuevos
+    # programadores
+    uso_lenguajes = {'Python': 29.9, 'Javascript': 19.1,
+                     'Go': 16.2, 'Java': 10.5, 'C++': 10.2,
+                     'C#': 8.2, 'C': 5.9
+                     }
 
-    '''
-    Obtener la facturación total (la suma total en los 3 meses)
-    de cada categória por separado. Nos debe quedar el total
-    facturado en alimentos, en bazar, en limpieza y en
-    electrodomesticos por separado (son 4 valores)
-
-    TIP:
-    1) para los que usan listas, para poder obtener estos
-    valores primero deberan generar una lista de cada categoría,
-    para luego poder aplicar operaciones como sum.
-    2) Para los que usan numpy pueden usar directamente np.sum
-    y especificando el axis=0 estarán haciendo la suma total de la columna
-
-    Con la información obtenida realizar un Pie Plot
-    para visualizar que categoría facturó más en lo que va
-    del año
-    '''
+    # El gráfico debe tener usar como label las keys del diccionario,
+    # debe usar como datos los values del diccionario
+    # Se desea resaltar (explode) el dato de Python
+    # Se desea mostrar en el gráfico los porcentajes de c/u
+    # Se debe colocar un título al gráfico
 
 
 def ej5():
-    print("Ahora sí! buena suerte :)")
+    # Uso de múltiples líneas en un mismo gráfico (axes)
+    # En el siguiente ejemplo generaremos una señal senoidal
+    # haciendo uso solamente de comprension de listas
+    step = 0.1
+    sample_size = 100
+    signal = [{'X': i*step, 'Y': math.sin(i*step)} for i in range(sample_size)]
 
-    '''
-    Ahora que ya hemos jugado un poco con nuestro dataset,
-    queremos realizar 3 gráficos de columnas en una misma figura
-    Cada gráfico de columnas deben tener 4 columnas que representan
-    el total vendido de cada categoría al final del mes.
-    Para poder hacer este ejercicio deben obtener primero
-    total facturado por categoria por mes (deben filtrar por mes)
-    Es parecido a lo realizado en el ejercicio anterior pero en vez
-    de todo el año es la suma total por mes por categoría.
+    # Se generó una lista de diccionarios con dos columnas "X" e "Y"
+    # que corresponden a los valores de nuestra señal senoidal.
+    # Se pide usar comprensión de listas para generar las dos listas
+    # por separado de los valoresde "X" e "Y" para poder utilizar
+    # el line plot y observar la señal
 
-    Siendo que son 4 categorías y 3 meses, deben obtener al final
-    12 valores, con esos 12 valores construir 3 listas/arrays
-    para poder mostrar los 3 gráficos de columnas
+    # signal_x = [....]
+    # signal_y = [....]
 
-    BONUS Track: Si están cancheros y aún quedan energías para practicar,
-    les proponemos que en vez de realizar 3 gráficos de columnas separados
-    realicen uno solo y agrupen la información utilizando gráfico de barras
-    apilados o agrupados (a su elección)
-    '''
+    # plot(signal_x, signal_y)
+
+    # Ahora que han visto la señal senoidal en su gráfico, se desea
+    # que generen otras dos listas de "X" e "Y" pero filtradas por
+    # el valor de "Y". Solamente se debe completar la lista
+    # con aquellos valores de "Y" cuyo valor absoluto (abs)
+    # supere 0.7
+
+    # filter_signal_x = [....]
+    # filter_signal_y = [....]
+
+    # Graficar juntas ambos conjuntos de listas y observar
+    # el resultado. Graficar filter como scatter plot
+
+    # plot(signal_x, signal_y)
+    # scatter(filter_signal_x, filter_signal_y)
+
+    # Pueden ver el concepto y la utilidad de
+    # realizar un gráfico encima de otro para filtrar datos?
 
 
 if __name__ == '__main__':
-    print("Ejercicios de práctica")
+    print("Bienvenidos a otra clase de Inove con Python")
     ej1()
     # ej2()
     # ej3()

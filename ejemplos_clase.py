@@ -430,7 +430,7 @@ def file_plot():
     plt.show(block=False)
 
     # Supongamos ahora que solo deseamos graficar para aquellos
-    # valores de X que sean mayor o igual a 2 y menor o igual a 6
+    # valores de X que sean mayor o igual a 2
     # Veamos que sucede en cada caso.
 
     # En el caso de compresion de listas podemos primero filtrar
@@ -439,8 +439,7 @@ def file_plot():
     # Para que quede más claro haremos la operacion en dos partes
 
     # Filtrar el dataset por los valores de X
-    filter_dataset = [data for data in datos1
-                      if (data['X'] >= 2) and (data['X'] <= 6)]
+    filter_dataset = [data for data in datos1 if data['X'] >= 2]
 
     # Debo utilizar comprension de listas para separar
     # las coulmnas "X" e "Y" en lista de datos
@@ -451,8 +450,8 @@ def file_plot():
     # es utilizar slicing con máscaras
 
     # Primero realizaremos una máscara que nos devuelva todas las filas
-    # en donde X>=2 y X<=6:
-    mask = (np.logical_and(datos2[:, 0] >= 2, datos2[:, 0] <= 6))
+    # en donde X>=2:
+    mask = datos2[:, 0] >= 2
 
     # Obtenemos nuestro dataset filtrado por la mascara
     filter_dataset2 = datos2[mask, :]

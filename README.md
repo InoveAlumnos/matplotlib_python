@@ -9,7 +9,7 @@ En este repositorio encontrarán los siguientes archivos:
 __Ejemplos que el profesor mostrará en clase__\
 ejemplos_clase.py
 
-__Ejemplos que el profesor mostrará en clase__\
+__Ejemplos de seaborn para quienes tengan curiosidad en su uso__\
 ejemplos_seaborn.py
 
 __Ejercicios para que el alumno desarrolle durante la clase__\
@@ -17,6 +17,9 @@ ejercicios_clase.py
 
 __Ejercicios para que el alumno profundice sobre el tema durante la semana__\
 ejercicios_practica.py
+
+__Ejercicios para que el alumno vea casos de aplicación real de estas herramientas__\
+ejercicios_extra.py
 
 # Consultas
 alumnos@inove.com.ar
