@@ -4,7 +4,7 @@ Matplotlib [Python]
 Ejercicios de práctica
 ---------------------------
 Autor: Inove Coding School
-Version: 1.1
+Version: 1.2
 
 Descripcion:
 Programa creado para que practiquen los conocimietos
@@ -13,7 +13,7 @@ adquiridos durante la semana
 
 __author__ = "Inove Coding School"
 __email__ = "alumnos@inove.com.ar"
-__version__ = "1.1"
+__version__ = "1.2"
 
 
 '''
@@ -30,7 +30,9 @@ y trabajar sin pasar por listas o diccionarios.
 
 TIP: Para abrir el archivo CSV con Numpy y que el header no
      quede mezclado con los datos utilizar:
-     data = np.genfromtxt(file_name_csv, delimiter=',', names=True) 
+     data = np.genfromtxt('ventas.csv', delimiter=',')
+     # Borro la fila 0 del header, los nombres de las columnas
+     data = data[1:,:]
 
 NO están permitidos los bucles en la realización de estos ejercicios.
 
