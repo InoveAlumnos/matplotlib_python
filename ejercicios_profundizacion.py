@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 '''
 Matplotlib [Python]
-Ejercicios de clase
+Ejercicios de profundización
 ---------------------------
 Autor: Inove Coding School
 Version: 1.1
